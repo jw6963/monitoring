@@ -1,7 +1,7 @@
 #!/bin/bash
 
 pc=$(cat ~/monitoring/alarm/catalogue | awk '{print$2}' | sed -n 1p | cut -d '=' -f2)
-oc=$(cat ~/monitoring/alarm/cartalouge | awk '{print$2}' | sed -n 2p | cut -d '=' -f2)
+oc=$(cat ~/monitoring/alarm/catalogue | awk '{print$2}' | sed -n 2p | cut -d '=' -f2)
 
 POD=$(kubectl get deployments.apps -n sock-shop catalogue | awk '{print $2}' | sed -n 2p | cut -d '/' -f1)
 

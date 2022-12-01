@@ -1,21 +1,21 @@
 #!/bin/bash
 
-pc=$(cat ~/monitoring/alarm/carts | awk '{print$2}' | sed -n 1p | cut -d '=' -f2)
-oc=$(cat ~/monitoring/alarm/carts | awk '{print$2}' | sed -n 2p | cut -d '=' -f2)
+pc=$(cat /home/ec2-user/monitoring/alarm/carts | awk '{print$2}' | sed -n 1p | cut -d '=' -f2)
+oc=$(cat /home/ec2-user/monitoring/alarm/carts | awk '{print$2}' | sed -n 2p | cut -d '=' -f2)
 
-POD=$(kubectl get deployments.apps -n sock-shop carts | awk '{print $2}' | sed -n 2p | cut -d '/' -f1)
+POD=$(kubectl get deployments.apps -n sock-shop carts | awk '{print $2}' | sed -n 2p | cut -d '/' -f1) 
 
 if [ -z ${pc} ]; then
-	        echo "export POD=${POD}" >> ~/monitoring/alarm/carts
+	        echo "export POD=${POD}" >> /home/ec2-user/monitoring/alarm/carts
 else
-	sed -i "s/${pc}/${POD}/g" ~/monitoring/alarm/carts
+	sed -i "s/${pc}/${POD}/g" /home/ec2-user/monitoring/alarm/carts
 fi
 
 if [ -z ${oc} ]; then
-	echo "export OLD=${POD}" >> ~/monitoring/alarm/carts
+	echo "export OLD=${POD}" >> /home/ec2-user/monitoring/alarm/carts
 	exit 0
 else
-	sed -i "s/${oc}/${POD}/g" ~/monitoring/alarm/carts
+	sed -i "s/${oc}/${POD}/g" /home/ec2-user/monitoring/alarm/carts
 fi
 
 
